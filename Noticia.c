@@ -8,27 +8,27 @@ Noticia* criarNoticia() {
     Noticia* nova = (Noticia*) malloc(sizeof(Noticia));
     if (nova == NULL) {
         printf("Erro de alocacao!\n");
-        return;
     }
+    else {
+        nova->id = id;
+        id++;
+        
+        printf("Escreva a data da noticia: ");
+        scanf(" %[^\n]", nova->data);
 
-    nova->id = id;
-    id++;
-    
-    printf("Escreva a data da noticia: ");
-    scanf("%s11[^\n]", nova->data);
+        printf("Escreva o Titulo: ");
+        scanf(" %[^\n]", nova->titulo);
 
-    prinntf("Escreva o Titulo: ");
-    scanf("%s40[^\n]", nova->titulo);
+        printf("Escreva o conteudo: ");
+        scanf(" %[^\n]", nova->conteudo);
 
-    printf("Escreva o conteudo: ");
-    scanf("%s100[^\n]", nova->conteudo);
+        printf("Escreva a fonte: ");
+        scanf(" %[^\n]", nova->fonte);
 
-    printf("Escreva a fonte: ");
-    scanf("%s40[^\n]", nova->fonte);
+        nova->classificacao = EmAnalise;
 
-    nova->classificacao = EmAnalise;
-
-    return nova;
+        return nova;
+    }
 }
 
 void imprimirNoticia(Noticia *n){

@@ -11,8 +11,8 @@ int main(void){
     ListaCab lista_pendentes;
     ListaEncad* lista_verificadas;
 
-    criarListaCabCau(&lista_pendentes);
-    criarListaEncadeada(&lista_verificadas);
+    criarListaCab(&lista_pendentes);
+    criarListaEncad(&lista_verificadas);
     
     do{
 
@@ -27,7 +27,7 @@ int main(void){
         "7 - Imprimir quantidade de noticias por categoria\n"
         "8 - Sair\n"
         "Escolha uma opcao:\n"
-        "-------------------------------------------\n"
+        "--------------------------------------\n"
         );
 
         scanf("%d", &opcao);
@@ -40,38 +40,40 @@ int main(void){
                 if (nova != NULL) {
                     InsereInicioCab(&lista_pendentes, *nova);
                     liberarNoticia(nova);
-                
                 }
                 break;
             }
-            case 2: //remover noticia pendente por id
+            case 2: { //remover noticia pendente por id
                 int id;
                 printf("Digite o id da noticia: ");
                 scanf("%d", &id);
                 removerPorId(&lista_pendentes, id);
                 break;
-
-            case 3: //remover verificada
-                if(!estaVaziaCab(&lista_pendentes)){
+            }
+            case 3: { //remover verificada
+                if(!estaVazioEncad(&lista_verificadas)){
                     char palavra[30];
                     printf("Digite a palavra chave: ");
                     scanf("%s", &palavra);
                     removerPorPalavra(&lista_verificadas, palavra);
                 }
-                else printf("A lista esta vazia!");
+                else { 
+                    printf("A lista esta vazia!");
+                }
                 break;
-
-            case 4: // buscar pendente
+            }
+            case 4: { // buscar pendente
                 char palavra[30];
                 printf("Digite a palavra chave: ");
                 scanf("%s", &palavra);
                 buscarNoticiasCab(&lista_pendentes, palavra);
                 break;
-
-            case 5: //imprimir 
+            }
+            case 5: {//imprimir 
                 int notic;
                 do { 
                     printf("Escolha quais noticias imprimir [1 - pendentes, 2 - verificadas, 3 - ambas]: ");
+                    scanf("%d", &notic);
                     if (notic == 1) {
                         imprimirListaCab(&lista_pendentes);
                     }
@@ -82,19 +84,19 @@ int main(void){
                         imprimirListaCab(&lista_pendentes);
                         imprimeListaEncad(&lista_verificadas);
                     }
-                } while (notic != 1 || notic != 2 || notic != 3);
+                } while (notic != 1 && notic != 2 && notic != 3);
                 break;
-
+            }
             case 6: { //classifcar 
                 NoListaCab* p;
                 NoListaCab* prox; 
 
-                if (p == lista_pendentes.cau) {
+                if (estaVaziaCab(&lista_pendentes)) {
                     printf("Nao ha noticias pendentes");
                     break;
                 }
 
-                for (p = lista_pendentes.cab->prox; p != lista_pendentes.cau; p = p->prox) {
+                for (p = lista_pendentes.cab->prox; p != lista_pendentes.cau; p = prox) {
                     prox = p->prox;
                     
                     printf("Analise a seguinte noticia:\n");
@@ -104,7 +106,7 @@ int main(void){
                     do {
                         printf("Classificacao [1 - EmAnalise, 2 - Confiavel, 3 - Suspeita]: ");
                         scanf("%d", &classe);
-                    } while (classe != 1 || classe != 2 || classe != 3);
+                    } while (classe != 1 && classe != 2 && classe != 3);
 
                     if (classe == 2 || classe == 3) {
                         Noticia* nova_verificada = (Noticia*) malloc(sizeof(Noticia));
@@ -124,13 +126,11 @@ int main(void){
                     else {
                         printf("Noticia nao classificada\n");
                     }
-                    p = prox;
-
                 }
                 break;
             } 
 
-            case 7: // imprimir qtd de noticia por categoria
+            case 7: { // imprimir qtd de noticia por categoria
                     printf(
                         "Noticias:\n"
                         "Pendentes: %d\n"
@@ -142,11 +142,11 @@ int main(void){
                         qtdSuspeita(&lista_verificadas)
                     );
                     break;
-
-            case 8:
+            }
+            case 8: {
                 printf("Encerrando programa...\n");
                 break;
-
+            }
         }
     } while (opcao != 8);
     return 0;

@@ -11,13 +11,13 @@ void criarListaEncad(ListaEncad** l);
 
 int estaVazioEncad(ListaEncad**l);
 
-void insereNoinicioEncad(ListaEncad** l, Noticia* v);
-
-void removerPorPalavra(ListaEncad** l, char* palavra);
-
 void imprimeListaEncad(ListaEncad**l);
 
+void insereNoinicioEncad(ListaEncad** l, Noticia* v);
+
 void liberarListaEncad(ListaEncad**l);
+
+void removerPorPalavra(ListaEncad** l, char* palavra);
 
 int qtdConfiavel(ListaEncad** l);
 

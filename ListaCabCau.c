@@ -20,7 +20,7 @@ void InsereInicioCab(ListaCab* l, Noticia n){
     
     if (novo != NULL) {
         novo->info = n;
-        if (!estaVazia(l)) {
+        if (!estaVaziaCab(l)) {
             novo->prox = l->cab->prox;
         }
         else {
@@ -55,7 +55,6 @@ void buscarNoticiasCab(ListaCab* l, char* palavra){
         if(strstr(p->info.titulo, palavra) != NULL ||  strstr(p->info.conteudo, palavra) != NULL) {
             imprimirNoticia(&(p->info));
            
-
             achou = 1;
         }
          
@@ -68,13 +67,14 @@ void buscarNoticiasCab(ListaCab* l, char* palavra){
 }
 
 void imprimirListaCab(ListaCab* l){
-    if(!estaVazia(l)){
+    if(!estaVaziaCab(l)){
         NoListaCab* p;
         for(p = l->cab->prox; p != l->cau; p = p->prox){
-            imprimirNoticia(p);
+            imprimirNoticia(&(p->info));
         }
         printf("\n");
-    }else{
+    }
+    else {
         printf("Esta Vazio!\n");
     }
 }

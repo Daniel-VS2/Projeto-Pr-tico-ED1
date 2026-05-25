@@ -9,15 +9,16 @@ void criarListaEncad(ListaEncad** l){
 }
 
 int estaVazioEncad(ListaEncad** l){
-    return *l == NULL;
+    return (*l == NULL);
 }
 
 void imprimeListaEncad(ListaEncad** l){
-    if(!estaVazio(l)){
+    if(!estaVazioEncad(l)){
         for(ListaEncad* p = *l;p!=NULL;p = p->prox){
             imprimirNoticia(p->info);
         } printf("\n");
-    } else{
+    } 
+    else {
         printf("Esta Vazia \n");
     }
 }
@@ -53,8 +54,8 @@ void removerPorPalavra(ListaEncad** l, char* palavra) {
         ant = p;
     if(p == NULL){
         printf("Elemento não encontrado.");
-        }
-    else{
+    }
+    else {
         if(ant == NULL){
             *l = p->prox;
         }
@@ -65,15 +66,36 @@ void removerPorPalavra(ListaEncad** l, char* palavra) {
     }
 }
 
+int qtdConfiavel(ListaEncad** l){
+    int qtd = 0;
+    for(ListaEncad*p = *l; p !=NULL; p = p->prox){
+        if(p->info->classificacao == Confiavel){
+            qtd++;;
+        }
+
+    }
+    return qtd;
+}
+
+int qtdSuspeita(ListaEncad ** l) {
+    int qtd = 0;
+    for (ListaEncad* p = *l; p != NULL; p = p->prox) {
+        if (p->info->classificacao == Suspeita)
+            qtd++;
+    }
+    return qtd;
+}
+
 ListaEncad* buscaNoticiaEncad(ListaEncad **l, Noticia* v){
-    if(!estaVazio(l)){
+    if(!estaVazioEncad(l)){
         for(ListaEncad*p = *l;p!=NULL;p = p->prox){
             if(p->info == v)
                 return p;
         } 
         printf("Não encontrado!");
         return NULL;
-    } else{
+    } 
+    else {
         printf("Esta Vazia \n");
         return NULL;
     }
@@ -86,25 +108,4 @@ ListaEncad* ultimaNoticiaEncad(ListaEncad** l){
         ant = p;
     }
     return ant;
-}
-
-int qtdConfiavel(ListaEncad** l){
-    int qtd = 0;
-    for(ListaEncad*p = *l; p !=NULL; p = p->prox){
-        if(p->info->classificacao == Confiavel){
-            qtd++;;
-        }
-
-    }
-    return qtd;
-    
-}
-
-int qtdSuspeita(ListaEncad ** l) {
-    int qtd = 0;
-    for (ListaEncad* p = *l; p != NULL; p = p->prox) {
-        if (p->info->classificacao == Suspeita)
-            qtd++;
-    }
-    return qtd;
 }
